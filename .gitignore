@@ -1,0 +1,5 @@
+# docker_save folder contents
+docker_save/*
+
+# pay attention to README.md inside docker_save folder
+!docker_save/README.md
