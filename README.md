@@ -63,7 +63,7 @@ Getting Started
   Example multiframe enhanced MR DICOM conversion to classic DICOM. Input and output of files is via the present working directory in which `dicom_tools_run.sh` is invoked
   ~~~
   cd $DICOM_TOOLS_HOME/dicom_examples
-  dicom_tools_run.sh dcuncat -of classic_MR_survey -framesper 1 enhanced_MR_survey.dcm
+  dicom_tools_run.sh dcuncat -output-file DCM_CLASSIC_MR_SURVEY -framesper 1 DCM_ENHANCED_MR_SURVEY
   ~~~
 
 Available Tools
