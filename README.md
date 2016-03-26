@@ -65,7 +65,7 @@ Getting Started
   [Environment]::SetEnvironmentVariable("PATH", "$PATH;$DICOM_TOOLS_HOME")
   ~~~
 
-5. Use the `dicom_tools_run.sh` (or `dicom_tools_run.bat` on **Windows**) script to run available DICOM tools (listed below) within the docker container.
+5. Use the `dicom_tools_run.sh` (or `dicom_tools_run.bat` on **Windows**) script to run available DICOM tools (listed below) within the docker container. The first time the script is run will cause the [welcheb/dicom_tools](https://hub.docker.com/r/welcheb/dicom_tools/) image to be downloaded from [https://hub.docker.com](https://hub.docker.com). The download is approximately 375 MB and may take some time to download depending on your internet connection speed.
 
   Show example version messages
   ~~~
