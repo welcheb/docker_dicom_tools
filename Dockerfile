@@ -43,8 +43,10 @@ RUN mkdir /scratch && echo "This is the dicom_tools scratch folder" > /scratch/s
 WORKDIR "/scratch"
 
 # cleanup
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get purge -y build-essential xutils-dev
+RUN apt-get clean autoclean
+RUN apt-get autoremove -y
+RUN rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
 # take care of path
 ENV PATH /dcm4che-3.3.7/bin:/dcm4che-2.0.29/bin:$PATH

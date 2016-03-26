@@ -31,14 +31,27 @@ Getting Started
   git clone https://github.com/welcheb/docker_dicom_tools.git ~/docker_dicom_tools
   ~~~
 
-4. Add the path to `dicom_tools_run.sh` to the `PATH` environment variable. Set `DICOM_TOOLS_HOME` to the path appropriate for your local computer. Below it is assumed you cloned the git repository into your home directory.
+4. Add the path to `dicom_tools_run.sh` to the `PATH` environment variable. Below it is assumed you cloned the git repository into your home directory.
 
+  **Linux**
   ~~~
-  export DICOM_TOOLS_HOME=~/docker_dicom_tools
-  export PATH=$PATH:$DICOM_TOOLS_HOME
+  echo 'export PATH=$PATH:~/docker_dicom_tools' > ~/.profile
+  source ~/.profile
   ~~~
 
-4. Use the dicom_tools_run.sh script to run available DICOM tools (listed below) within the docker container
+  **Mac OS X**
+  ~~~
+  echo 'export PATH=$PATH:~/docker_dicom_tools' > ~/.bash_profile
+  source ~/.bash_profile
+  ~~~
+
+  **Windows**
+  ~~~
+  echo 'export PATH=$PATH:~/docker_dicom_tools' > ~/.bash_profile
+  source ~/.bash_profile
+  ~~~
+
+5. Use the `dicom_tools_run.sh` script to run available DICOM tools (listed below) within the docker container
 
   Show example version messages
   ~~~
@@ -48,7 +61,7 @@ Getting Started
   dicom_tools_run.sh dcm2json --version
   ~~~
 
-  Note that some tool names, e.g., `dcm2xml`, appear in multiple tool boxes and a full path to the exact exectuable you want may be necessary. Order of precedence is `dcm4che3` > `dcm4che2` > `dcmtk`
+  Note that some tool names, e.g., `dcm2xml`, appear in multiple tool boxes and a full path to the exact exectuable you want may be necessary. The order of precedence is **dcm4che3** > **dcm4che2** > **dcmtk**
   ~~~
   # dcm4che3
   dicom_tools_run.sh dcm2xml --version
@@ -62,7 +75,7 @@ Getting Started
 
   Example multiframe enhanced MR DICOM conversion to classic DICOM. Input and output of files is via the present working directory in which `dicom_tools_run.sh` is invoked
   ~~~
-  cd $DICOM_TOOLS_HOME/dicom_examples
+  cd ~/docker_dicom_tools/dicom_examples
   dicom_tools_run.sh dcuncat -output-file DCM_CLASSIC_MR_SURVEY -framesper 1 DCM_ENHANCED_MR_SURVEY
   ~~~
 
@@ -141,6 +154,22 @@ dcmqrscp     hl7snd     mppsscp    storescu
 dcmvalidate  ianscp     mppsscu    stowrs
 ~~~
 
-Some of the above **dcm4che** tools, such as `dcm2xml`, `dcmdump`, `storescp`, `storescu`, `xml2dcm` conflict with **dcmtk** tools. Use full path to bin folder to avoid ambiguity in such cases, e.g., `/usr/bin/dcm2xml` for **dcmtk** or `/dcm4che-3.3.7/bin/dcm2xml` for **dcmche**
+Some of the above **dcm4che** tools, such as `dcm2xml`, `dcmdump`, `storescp`, `storescu`, `xml2dcm` conflict with **dcmtk** tools. Use full path to bin folder to avoid ambiguity in such cases, e.g., `/usr/bin/dcm2xml` for **dcmtk** or `/dcm4che-3.3.7/bin/dcm2xml` for **dcmche3**
 
 **dcmche3** has precedence over **dcm4che2** in the search path. To use **dcm4che2** tools, use a full path such as `/dcm4che-2.0.29/bin/dcm2dcm`
+
+Build from Dockerfile
+=====================
+
+To build the **dicom_tools** docker image use the included `docker_build.sh` script. After the docker image is created by the script, it is saved as a gzipped tar file `dicom_tools.tar.gz` in the `docker_dicom_tools/docker_save/` folder.
+
+~~~
+# build dicom_tools docker image from scratch
+~/docker_dicom_tools/docker_build.sh
+~~~
+
+The `dicom_tools.tar.gz` can be loaded with the following command.
+
+~~~
+docker load < ~/docker_dicom_tools/docker_save/dicom_tools.tar.gz
+~~~
