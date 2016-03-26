@@ -13,7 +13,7 @@ Docker images and containers (a running image) are similar to virtual machines e
 
 Currently Docker containers run natively on **Linux**. On **Mac OS X** and **Windows**, a lightweight **Linux** virtual machine is required to run the Docker daemon. Docker support for **Mac OS X** and **Windows** is available using the [Docker Toolbox](https://www.docker.com/products/docker-toolbox).
 
-File input/output is handled using shared mounted volumes between the host and the container. Due to limitations of docker volume mounting when the host OS is not **Linux**, the installation of **docker_dicom_tools** is recommended to be under the user's home directory. To process data, the user should change to the directory on the host OS to the directory holding the input data before invoking the `dicom_tools_run.sh` (or `dicom_tools_run.bat` on **Windows**) script.
+File input/output is handled using shared mounted volumes between the host and the container. Due to limitations of docker volume mounting when the host OS is not **Linux**, the installation of **docker_dicom_tools** is recommended to be under the user's home directory. To process data, the user should change to the directory on the host OS to the directory holding the input data (which should also be under the user home directory) before invoking the `dicom_tools_run.sh` (or `dicom_tools_run.bat` on **Windows**) script.
 
 Getting Started
 ===============
