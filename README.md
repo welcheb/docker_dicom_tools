@@ -1,31 +1,43 @@
 docker_dicom_tools
 ==================
 
-Dockerfile to build a Docker container for DICOM tools and utilities
+Dockerfile to build a Docker image for DICOM tools and utilities. Toolboxes include
+[dicom3tools](http://www.dclunie.com/dicom3tools), [dcmtk](http://dcmtk.org/dcmtk.php.en),
+[dcm4che2](https://sourceforge.net/projects/dcm4che/files/dcm4che2/), and
+[dcm4che3](https://sourceforge.net/projects/dcm4che/files/dcm4che3/).
+
+Overview
+========
+
+Docker images and containers (a running image) are similar to virtual machines except that the container operating system (OS) matches the host OS. That allows the container to be managed like a process with no boot-up required. This makes running an application in a container efficient and fast compared to using a virtual machine.
+
+Currently Docker containers run natively on **Linux**. On **Mac OS X** and **Windows**, a lightweight **Linux** virtual machine is required to run the Docker daemon. Docker support for **Mac OS X** and **Windows** is available using the [Docker Toolbox](https://www.docker.com/products/docker-toolbox).
+
+File input/output is handled using shared mounted volumes between the host and the container. Due to limitations of docker volume mounting when the host OS is not **Linux**, the installation of **docker_dicom_tools** is recommended to be under the user's home directory. To process data, the user should change to the directory on the host OS to the directory holding the input data before invoking the `dicom_tools_run.sh` (or `dicom_tools_run.bat` on **Windows**) script.
 
 Getting Started
 ===============
 
-1. Install [docker](https://www.docker.com)
+1. Install [docker](https://www.docker.com).
 
   **Linux** installation from the command line
   ~~~
   wget -qO- https://get.docker.com | sh
-  sudo usermod -aG docker <your_username>
+  sudo usermod -aG docker <YOUR_USERNAME>
   reboot
   ~~~
 
   **Mac OS X** or **Windows**
 
-  download and install [Docker Toolbox](https://www.docker.com/products/docker-toolbox)
+  Download and install [Docker Toolbox](https://www.docker.com/products/docker-toolbox).
 
-2. Open a command prompt terminal
+2. Open a command prompt terminal.
 
   **Linux** : open a normal terminal window
 
   **Mac OS X** or **Windows** : open **Docker Quickstart Terminal** application
 
-3. Download this git repository to your home directory
+3. Download this git repository to your home directory.
 
   ~~~
   git clone https://github.com/welcheb/docker_dicom_tools.git ~/docker_dicom_tools
@@ -35,23 +47,25 @@ Getting Started
 
   **Linux**
   ~~~
-  echo 'export PATH=$PATH:~/docker_dicom_tools' > ~/.profile
+  echo 'export PATH=$PATH:~/docker_dicom_tools' >> ~/.profile
   source ~/.profile
   ~~~
 
   **Mac OS X**
   ~~~
-  echo 'export PATH=$PATH:~/docker_dicom_tools' > ~/.bash_profile
+  echo 'export PATH=$PATH:~/docker_dicom_tools' >> ~/.bash_profile
   source ~/.bash_profile
   ~~~
 
-  **Windows**
+  **Windows** Powershell
   ~~~
-  echo 'export PATH=$PATH:~/docker_dicom_tools' > ~/.bash_profile
-  source ~/.bash_profile
+  $PATH = [Environment]::GetEnvironmentVariable("PATH")
+  $USER = "<YOUR_USERNAME>"
+  $DICOM_TOOLS_HOME = "C:\Users\$USER\docker_dicom_tools\"
+  [Environment]::SetEnvironmentVariable("PATH", "$PATH;$DICOM_TOOLS_HOME")
   ~~~
 
-5. Use the `dicom_tools_run.sh` script to run available DICOM tools (listed below) within the docker container
+5. Use the `dicom_tools_run.sh` (or `dicom_tools_run.bat` on **Windows**) script to run available DICOM tools (listed below) within the docker container.
 
   Show example version messages
   ~~~
@@ -61,7 +75,7 @@ Getting Started
   dicom_tools_run.sh dcm2json --version
   ~~~
 
-  Note that some tool names, e.g., `dcm2xml`, appear in multiple tool boxes and a full path to the exact exectuable you want may be necessary. The order of precedence is **dcm4che3** > **dcm4che2** > **dcmtk**
+  Note that some tool names, e.g., `dcm2xml`, appear in multiple tool boxes and a full path to the exact executable you want may be necessary. The order of precedence is **dcm4che3** > **dcm4che2** > **dcmtk**.
   ~~~
   # dcm4che3
   dicom_tools_run.sh dcm2xml --version
@@ -73,7 +87,7 @@ Getting Started
   dicom_tools_run.sh /usr/bin/dcm2xml --version
   ~~~
 
-  Example multiframe enhanced MR DICOM conversion to classic DICOM. Input and output of files is via the present working directory in which `dicom_tools_run.sh` is invoked
+  Convert multiframe enhanced MR DICOM to classic DICOM. Input and output of files is via the present working directory in which `dicom_tools_run.sh` is invoked.
   ~~~
   cd ~/docker_dicom_tools/dicom_examples
   dicom_tools_run.sh dcuncat -output-file DCM_CLASSIC_MR_SURVEY -framesper 1 DCM_ENHANCED_MR_SURVEY
@@ -154,9 +168,9 @@ dcmqrscp     hl7snd     mppsscp    storescu
 dcmvalidate  ianscp     mppsscu    stowrs
 ~~~
 
-Some of the above **dcm4che** tools, such as `dcm2xml`, `dcmdump`, `storescp`, `storescu`, `xml2dcm` conflict with **dcmtk** tools. Use full path to bin folder to avoid ambiguity in such cases, e.g., `/usr/bin/dcm2xml` for **dcmtk** or `/dcm4che-3.3.7/bin/dcm2xml` for **dcmche3**
+Some of the above **dcm4che** tools, such as `dcm2xml`, `dcmdump`, `storescp`, `storescu`, `xml2dcm` conflict with **dcmtk** tools. Use full path including specific `bin` folder to avoid ambiguity in such cases, e.g., `/usr/bin/dcm2xml` for **dcmtk** or `/dcm4che-3.3.7/bin/dcm2xml` for **dcmche3**.
 
-**dcmche3** has precedence over **dcm4che2** in the search path. To use **dcm4che2** tools, use a full path such as `/dcm4che-2.0.29/bin/dcm2dcm`
+**dcmche3** has precedence over **dcm4che2** in the search path. To use **dcm4che2** tools, use a full path such as `/dcm4che-2.0.29/bin/dcm2dcm`.
 
 Build from Dockerfile
 =====================
