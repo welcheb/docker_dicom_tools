@@ -3,3 +3,9 @@ docker_save/*
 
 # pay attention to README.md inside docker_save folder
 !docker_save/README.md
+
+# dicom_exmaples folder contents
+dicom_exmaples/*
+
+# pay attention to DCM_ENHANCED_MR_SURVEY inside dicom_exmaples folder
+!dicom_exmaples/DCM_ENHANCED_MR_SURVEY
