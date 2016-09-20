@@ -12,7 +12,7 @@ RUN apt-get -y update && apt-get install -y \
 
 # dicom3tools
 # http://www.dclunie.com/dicom3tools
-RUN wget http://www.dclunie.com/dicom3tools/workinprogress/dicom3tools_1.00.snapshot.20151213160232.tar.bz2
+RUN wget http://www.dclunie.com/dicom3tools/workinprogress/dicom3tools_1.00.snapshot.20160721064406.tar.bz2
 RUN tar xvjf dicom3tools_1.00.snapshot.20151213160232.tar.bz2
 WORKDIR "/dicom3tools_1.00.snapshot.20151213160232"
 RUN ./Configure
